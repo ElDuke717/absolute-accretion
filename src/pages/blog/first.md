@@ -1,8 +1,6 @@
 ---
-layout: '../../layouts/Layout.astro'
+layout: "../../layouts/Layout.astro"
+title: First Blog Post
 ---
 
-# First Blog Post
-
-This is my first blog post. I hope you enjoy it!
-```
+This is my First blog post. I hope you enjoy it!
