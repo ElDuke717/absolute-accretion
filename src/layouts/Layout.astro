@@ -10,23 +10,55 @@ import { ViewTransitions } from 'astro:transitions';
     <meta name='viewport' content='width=device-width' />
     <meta name='generator' content={Astro.generator} />
     <meta name='description' content={frontmatter?.description ? frontmatter.description : 'My awesome blog'} />
-    <meta
-  property="og:image"
-  content={`https://mywebsite.com/my-image.png`}
-/>
+    <meta property="og:image" content={`https://mywebsite.com/my-image.png`}/>
     <title>{title}</title>
     <style is:global>
+        :root {
+          --primary-dark-purple: #b300b3;
+          --secondary-dark-purple: #800080;
+          --light-grey: #e7e7e7;
+          --vibrant-yellow: #9f9f00;
+          --deep-blue-black: #15202b;
+          --background-color: #ffffff;
+          --text-color: #333333;
+        }
+
+        @media (prefers-color-scheme: dark) {
+          :root {
+            --primary-dark-purple: #b300b3;
+            --secondary-dark-purple: #80008099; /* semi-transparent for dark mode */
+            --light-grey: #333333;
+            --vibrant-yellow: #9f9f00;
+            --deep-blue-black: #e7e7e7; /* lighter for text in dark mode */
+            --background-color: #15202b;
+            --text-color: #e7e7e7;
+          }
+        }
+
+        body {
+          font-family: 'Inter', sans-serif;
+          background-color: var(--background-color);
+          color: var(--text-color);
+        }
+
         h1 {
           font-size: 1.5rem;
           font-weight: bold;
+          color: var(--deep-blue-black);
+        }
+
+        a {
+          color: var(--primary-dark-purple);
+          text-decoration: none;
+          transition: color 0.3s ease;
+        }
+
+        a:hover {
+          color: var(--vibrant-yellow);
+          text-decoration: underline;
         }
       </style>
-      <link
-      rel="alternate"
-      type="application/rss+xml"
-      title="My cool blog"
-      href="/rss.xml"
-    />
+    <link rel="alternate" type="application/rss+xml" title="My cool blog" href="/rss.xml"/>
     <link rel="sitemap" href="/sitemap-index.xml" />
     <ViewTransitions />
   </head>
@@ -44,3 +76,4 @@ import { ViewTransitions } from 'astro:transitions';
     <slot />
   </body>
 </html>
+
