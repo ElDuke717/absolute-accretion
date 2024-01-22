@@ -1,15 +1,22 @@
 ---
-import { getCollection } from 'astro:content'
-import Layout from '@/src/layouts/Layout.astro'
-let posts = await getCollection('posts')
+import { getCollection } from 'astro:content';
+import Layout from '@/src/layouts/Layout.astro';
+let posts = await getCollection('posts');
+
+const tags: string[] = []
+posts.map(post => {
+  post.data.tags.map(tag => {
+    if (!tags.includes(tag)) tags.push(tag)
+  })
+})
 
 posts = posts
   .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf())
   .slice(0, 3);
 ---
 
-<Layout>
-  <h1>Astro</h1>
+<Layout title="Home">
+  <h1>Home</h1>
 
   <p class='my-4'>Blog posts:</p>
   <ul class='list-inside list-disc'>
@@ -26,6 +33,19 @@ posts = posts
   </ul>
 
   <p class='py-4'><a class='underline' href={'/blog/page/1'}>See all posts ▶︎</a></p>
+  <p class='my-4'>Explore by tag:</p>
+  <div class='my-4 space-x-2'>
+    {
+      tags.map(tag => (
+        <a
+          href={`/tag/${tag}`}
+          class='border border-black py-1 px-2 rounded-lg'>
+          {tag}
+        </a>
+      ))
+    }
+  </div>
+
 </Layout>
 
 

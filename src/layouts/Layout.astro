@@ -1,5 +1,6 @@
 ---
-const { frontmatter } = Astro.props
+const { frontmatter, title } = Astro.props
+import { ViewTransitions } from 'astro:transitions';
 ---
 
 <html lang='en'>
@@ -8,13 +9,26 @@ const { frontmatter } = Astro.props
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
     <meta name='viewport' content='width=device-width' />
     <meta name='generator' content={Astro.generator} />
-    <title>Astro</title>
+    <meta name='description' content={frontmatter?.description ? frontmatter.description : 'My awesome blog'} />
+    <meta
+  property="og:image"
+  content={`https://mywebsite.com/my-image.png`}
+/>
+    <title>{title}</title>
     <style is:global>
         h1 {
           font-size: 1.5rem;
           font-weight: bold;
         }
       </style>
+      <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="My cool blog"
+      href="/rss.xml"
+    />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <ViewTransitions />
   </head>
   <body class="p-5">
     {
